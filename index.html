@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闹钟</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            position: relative;
+        }
+        .container{
+            box-sizing: border-box;
+            width: 600px;
+            height: 300px;
+            background-color: #AAAAAA;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            text-align: center;
+            padding: 50px;
+        }
+        .time{
+            display: inline-block;
+        }
+        .btngroup{
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+        }
+        .start{
+            margin-right: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">00:
+        <div class="time">30</div>
+        <div class="btngroup">
+            <button class="start" onclick="start()">开始</button>
+            <button class="end" onclick="end()">停止</button>
+        </div>
+        <audio src="./HuaweiAlarm.mp3" preload="auto"></audio>
+    </div>
+</body>
+<script>
+    let time = document.getElementsByClassName('time')[0];
+    let audio = document.getElementsByTagName('audio')[0];
+    let clock = null;
+    function start(){
+        if(!clock){
+            time.innerHTML = 30;
+            clock = setInterval(() => {
+                if(parseInt(time.innerHTML) > 0) {
+                    time.innerHTML = parseInt(time.innerHTML)-1;
+                    // if(parseInt(time.innerHTML) == 20){
+                    //     audio.play();
+                    // }
+                    if(parseInt(time.innerHTML) == 0){
+                        audio.play();
+                    }
+                }
+                else{
+                    clearInterval(clock);
+                    clock = null;
+                }
+            }, 1000);
+        }
+    }
+    function end(){
+        clearInterval(clock);
+        clock = null;
+    }
+</script>
+</html>
